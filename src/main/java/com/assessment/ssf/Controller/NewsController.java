@@ -3,8 +3,6 @@ package com.assessment.ssf.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +19,10 @@ public class NewsController {
     @Autowired
     private NewsService service;
 
-    //Prepping the list of article
-    @PostConstruct
-    public void getArticles(){
-        service.getArticles();
-    }
-
     @GetMapping
     public String getArticlesPage(Model model){
-        model.addAttribute("articleList", Article.listOfArticles);
+        List<Article> articleList = service.getArticles();
+        model.addAttribute("articleList", articleList);
         return "articlesPage";
     }
 
